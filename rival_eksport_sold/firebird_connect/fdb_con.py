@@ -7,7 +7,6 @@ database = {"host": "192.168.1.100", "database": "flask",
 def con_to_firebird(query, *args, **kwargs):
     con = fdb.connect(**database)
     cur = con.cursor()
-    data = []
     try:
         cur.execute(query.format(**kwargs), *args)
     except fdb.Error as e:

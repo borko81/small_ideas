@@ -1,4 +1,4 @@
-sold = """
+sold = '''
 with table_header as
 (
 select
@@ -75,7 +75,8 @@ end as f21,
 '' as f43,
 '' as f44,
 '' as f45,
-round(fak.suma, 2) as f46,
+--round(fak.suma, 2) as f46,
+'' as f46,
 '' as f47,
 '' as f48
 from fak
@@ -141,8 +142,8 @@ end as b21,
 '' as b29,
 '' as b30,
 '' as b31,
-'' as b32,
-'' as b33,
+fak.v_broi as b32,
+(select pay_tip.name_cyr from pay_tip where pay_tip.id = fak.v_broi) as b33,
 '' as b34,
 '' as b35,
 fak_el.text as b36,
@@ -155,9 +156,13 @@ dds_stavka.dds as b42,
 round(fak_el.suma_total, 2) as b43,
 '' as b44,
 '' as b45,
-'' as b46,
+case when fak_el.text like 'Депозит%' or (fak_el.text like 'Авансово плащане%') then 412
+else 4119
+end as b46,
 '' as b47,
-'' as b48
+case when fak_el.text like 'Авансово плащане%' then right(fak_el.text, 10)
+else ''
+end as b48
 from fak_el
 inner join fak on fak.id = fak_el.fak_id
 left join firmi on firmi.id = fak.firma_id
@@ -173,4 +178,4 @@ union all
 select * from table_body
 )
 order by 8, 2 desc
-"""
+'''
