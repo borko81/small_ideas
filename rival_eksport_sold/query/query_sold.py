@@ -179,3 +179,109 @@ select * from table_body
 )
 order by 8, 2 desc
 '''
+
+purhcase = """
+with header as
+(
+select
+case
+    when fak_in.tip = 0 then 1 else fak_in.tip
+end as first_dost1,
+case
+    when fak_in.tip = 0 then 'Фактура' else 'КИ'
+end as first_dost2,
+'' as first_dost3,
+'Покупка на стоки' as first_dost4,
+fak_in.number as first_dost5,
+opr.opr_date as first_dost6,
+'' as first_dost7,
+'' as first_dost8,
+'' as first_dost9,
+'' as first_dost10,
+'' as first_dost11,
+'' as first_dost12,
+sklad.name as first_dost13,
+'' as first_dost14,
+'' as first_dost15,
+'' as first_dost16,
+'' as first_dost17,
+firmi.name_fak as first_dost18,
+firmi.idnomdds as first_dost19,
+firmi.bulstat as first_dost20,
+'' as first_dost21,
+'' as first_dost22,
+'' as first_dost23,
+'' as first_dost24,
+'' as first_dost25,
+'' as first_dost26,
+fak_in.suma as first_dost27,
+'' as first_dost28,
+'' as first_dost29,
+case
+   when fak_in.pay_tip = 0 then 'В БРОИ'
+   else 'БАНКОВ ПРЕВОД'
+end as first_dost30,
+case
+   when fak_in.pay_tip = 0 then 501
+   else 503
+end as first_dost31
+from fak_in
+inner join opr on opr.id = fak_in.opr_id
+inner join sklad on sklad.id = fak_in.sklad_id
+inner join firmi on firmi.id = opr.kli_id
+where fak_in.number between {first} and {last}
+),
+footer as (
+select
+case
+    when fak_in.tip = 0 then 1 else fak_in.tip
+end as first_dost1,
+case
+    when fak_in.tip = 0 then 'Фактура' else 'КИ'
+end as first_dost2,
+'' as first_dost3,
+'Покупка на стоки' as first_dost4,
+fak_in.number as first_dost5,
+opr.opr_date as first_dost6,
+'' as first_dost7,
+'' as first_dost8,
+'' as first_dost9,
+'' as first_dost10,
+'' as first_dost11,
+'' as first_dost12,
+sklad.name as first_dost13,
+'' as first_dost14,
+'' as first_dost15,
+'' as first_dost16,
+'' as first_dost17,
+firmi.name_fak as first_dost18,
+firmi.idnomdds as first_dost19,
+firmi.bulstat as first_dost20,
+'' as first_dost21,
+'' as first_dost22,
+'' as first_dost23,
+'' as first_dost24,
+'' as first_dost25,
+'' as first_dost26,
+fak_in.suma as first_dost27,
+round(fak_in.dds, 3) as first_dost28,
+round(fak_in.total, 2) as first_dost29,
+case
+   when fak_in.pay_tip = 0 then 'В БРОИ'
+   else 'БАНКОВ ПРЕВОД'
+end as first_dost30,
+case
+   when fak_in.pay_tip = 0 then 501
+   else 503
+end as first_dost31
+from fak_in
+inner join opr on opr.id = fak_in.opr_id
+inner join sklad on sklad.id = fak_in.sklad_id
+inner join firmi on firmi.id = opr.kli_id
+where fak_in.number between {first} and {last}
+)
+select * from header
+union all
+select * from footer
+order by 5
+"""
