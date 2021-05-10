@@ -6,7 +6,7 @@ select
 'doc_payment' as f2,
 '' as f3,
 cast(fak.date_sdelka as date) as f4,
-'400' as f5,
+'4000' as f5,
 users.name_cyr as f6,
 '' as f7,
 fak.number as f8,
@@ -73,7 +73,13 @@ end as f21,
 '' as f41,
 '' as f42,
 '' as f43,
-'' as f44,
+case
+    when fak.firma_id = 1
+then
+    'AGENT :'
+else
+    'PERSON :'
+end as f44,
 '' as f45,
 --round(fak.suma, 2) as f46,
 '' as f46,
