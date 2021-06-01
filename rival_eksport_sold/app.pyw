@@ -1,5 +1,6 @@
 from tkinter import Tk, Label, Entry, Button, N, W
 import datetime
+import time
 import os
 from firebird_connect.fdb_con import Fdb_Class, database, database_skl
 from query.query_sold import sold, purhcase
@@ -32,6 +33,7 @@ def sold_value_from_entry(my_path, query, name):
     full_path = os.path.join(PATH_TO_FOLDER, 'Desktop', file_name)
     with open(full_path, 'w') as f:
         for line in request.con_to_firebird_purchase3():
+            # line[5] = line[5][8:]+'.'+line[5][5:7]+'.'+line[5][0:4]
             print('^'.join(str(x).strip() for x in line), file=f)
 
 

@@ -13,9 +13,9 @@ class Fdb_Class:
     """
         Take path to base, first and last number fuk and query
     """
-    def __init__(self, path_to_base, numers_of_fak, query) -> None:
+    def __init__(self, path_to_base, numbers_of_fak, query) -> None:
         self.path_to_base = path_to_base
-        self.number_of_fak = numers_of_fak
+        self.number_of_fak = numbers_of_fak
         self.query = query
 
     def __iter__(self):
