@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Entry, Button, N, W
+from tkinter import Tk, Label, Entry, Button, N, W, StringVar
 import datetime
 import time
 import os
@@ -17,8 +17,8 @@ def read_what_you_need_from_gui():
     """
         Return first and last number of needed fak.
     """
-    f_data = one.get()
-    l_data = two.get()
+    f_data = str(one.get())
+    l_data = str(two.get())
     data = {'first': f_data, 'last': l_data}
     return data
 
@@ -33,7 +33,6 @@ def sold_value_from_entry(my_path, query, name):
     full_path = os.path.join(PATH_TO_FOLDER, 'Desktop', file_name)
     with open(full_path, 'w') as f:
         for line in request.con_to_firebird_purchase3():
-            # line[5] = line[5][8:]+'.'+line[5][5:7]+'.'+line[5][0:4]
             print('^'.join(str(x).strip() for x in line), file=f)
 
 
@@ -44,16 +43,18 @@ window.title("Rival - Purchase")
 window.geometry('250x150')
 
 # Number one
-date_one = Label(window, text="Първа фактура")
+date_one = Label(window, text="Първа Дата")
 date_one.grid(row=0, column=0, sticky='nw')
-one = Entry(window)
+one_entry = StringVar()
+one = Entry(window, textvariable="one_entry")
 one.focus()
 one.grid(row=0, column=1)
 
 # Number two
-date_two = Label(window, text="Последна фактура")
+date_two = Label(window, text="Последна Дата")
 date_two.grid(row=1, column=0, sticky='nw')
-two = Entry(window)
+two_entry = StringVar()
+two = Entry(window, textvariable="two_entry")
 two.grid(row=1, column=1)
 
 # Generate button

@@ -235,7 +235,9 @@ from fak_in
 inner join opr on opr.id = fak_in.opr_id
 inner join sklad on sklad.id = fak_in.sklad_id
 inner join firmi on firmi.id = opr.kli_id
-where fak_in.number between {first} and {last}
+--where cast(opr.datetime as date) between '01.06.2021' and '01.06.2021'
+where cast(opr.datetime as date) between '{first}' and '{last}'
+--where fak_in.number between {first} and {last}
 ),
 footer as (
 select
@@ -284,7 +286,9 @@ from fak_in
 inner join opr on opr.id = fak_in.opr_id
 inner join sklad on sklad.id = fak_in.sklad_id
 inner join firmi on firmi.id = opr.kli_id
-where fak_in.number between {first} and {last}
+--where cast(opr.datetime as date) between '01.06.2021' and '01.06.2021'
+where cast(opr.datetime as date) between '{first}' and '{last}'
+--where fak_in.number between {first} and {last}
 )
 select * from header
 union all
